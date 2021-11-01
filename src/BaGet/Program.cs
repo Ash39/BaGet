@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BaGet.Core;
 using BaGet.Web;
@@ -14,6 +15,15 @@ namespace BaGet
     {
         public static async Task Main(string[] args)
         {
+            string[] rmArgs = new string[] {"/bin/sh", "-c", @"bundle\", @"exec\", @"puma\", @"-C\", @"source\", @"/app/setup_heroku_env.sh","heroku", "start", "run", "stop"};
+            for(int i = 0; i< rmArgs.Length; i++)
+            {
+                if(args.Contains(rmArgs[i]))
+                {
+                    int index = Array.IndexOf(args,rmArgs[i]);
+                    args[index] = string.Empty;
+                }
+            }
             var host = CreateHostBuilder(args).Build();
             if (!host.ValidateStartupOptions())
             {
