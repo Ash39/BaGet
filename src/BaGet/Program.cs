@@ -15,15 +15,22 @@ namespace BaGet
     {
         public static async Task Main(string[] args)
         {
-            string[] rmArgs = new string[] {"/bin/sh", "-c", @"bundle\", @"exec\", @"puma\", @"-C\", @"source\", @"/app/setup_heroku_env.sh","heroku", "start", "run", "stop"};
-            for(int i = 0; i< rmArgs.Length; i++)
+            if(args.Length != 0)
             {
-                if(args.Contains(rmArgs[i]))
+                string[] rmArgs = new string[] {"/bin/sh", "-c", @"bundle\", @"exec\", @"puma\", @"-C\", @"source\", @"/app/setup_heroku_env.sh","heroku", "start", "run", "stop"};
+                for(int i = 0; i< rmArgs.Length; i++)
                 {
-                    int index = Array.IndexOf(args,rmArgs[i]);
-                    args[index] = string.Empty;
+                    if(args.Contains(rmArgs[i]))
+                    {
+                        int index = Array.IndexOf(args,rmArgs[i]);
+                        args[index] = string.Empty;
+                    }
+
+                    args = args.Where(a => !string.IsNullOrEmpty(a)).ToArray();
                 }
+
             }
+            
             var host = CreateHostBuilder(args).Build();
             if (!host.ValidateStartupOptions())
             {
