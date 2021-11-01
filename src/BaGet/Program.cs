@@ -30,7 +30,8 @@ namespace BaGet
                         "start", 
                         "run", 
                         "stop",
-                        "bundle exec puma -C source /app/setup_heroku_env.sh"};
+                        "bundle exec puma -C source /app/setup_heroku_env.sh",
+                        @"/bin/sh -c bundle\ exec\ puma\ -C\ source\ /app/setup_heroku_env.sh"};
                 for(int i = 0; i< rmArgs.Length; i++)
                 {
                     if(args.Contains(rmArgs[i]))
