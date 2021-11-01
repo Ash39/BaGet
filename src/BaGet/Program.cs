@@ -17,7 +17,20 @@ namespace BaGet
         {
             if(args.Length != 0)
             {
-                string[] rmArgs = new string[] {"/bin/sh", "-c", @"bundle\", @"exec\", @"puma\", @"-C\", @"source\", @"/app/setup_heroku_env.sh","heroku", "start", "run", "stop"};
+                string[] rmArgs = new string[] 
+                    {
+                        "/bin/sh", 
+                        "-c", @"bundle\", 
+                        @"exec\", 
+                        @"puma\", 
+                        @"-C\", 
+                        @"source\", 
+                        @"/app/setup_heroku_env.sh",
+                        "heroku", 
+                        "start", 
+                        "run", 
+                        "stop",
+                        "bundle exec puma -C source /app/setup_heroku_env.sh"};
                 for(int i = 0; i< rmArgs.Length; i++)
                 {
                     if(args.Contains(rmArgs[i]))
