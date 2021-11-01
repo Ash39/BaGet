@@ -15,5 +15,4 @@ FROM base AS final
 LABEL org.opencontainers.image.source="https://github.com/loic-sharma/BaGet"
 WORKDIR /app
 COPY --from=publish /app .
-ENV ASPNETCORE_URLS http://*:$PORT
 ENTRYPOINT ["dotnet", "BaGet.dll"]

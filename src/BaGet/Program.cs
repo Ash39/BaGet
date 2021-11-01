@@ -93,7 +93,7 @@ namespace BaGet
                 .ConfigureAppConfiguration((ctx, config) =>
                 {
                     var root = Environment.GetEnvironmentVariable("BAGET_CONFIG_ROOT");
-
+                    
                     if (!string.IsNullOrEmpty(root))
                     {
                         config.SetBasePath(root);
@@ -107,6 +107,11 @@ namespace BaGet
                         // be enforced by a reverse proxy server, like IIS.
                         options.Limits.MaxRequestBodySize = null;
                     });
+
+                    var port = Environment.GetEnvironmentVariable("PORT");
+
+                    web.UseUrls("http://*:" + port);
+
 
                     web.UseStartup<Startup>();
                 });
