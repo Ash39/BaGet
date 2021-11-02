@@ -14,7 +14,12 @@ namespace BaGet
             app.Services.AddBaGetDbContextProvider<PostgreSqlContext>("PostgreSql", (provider, options) =>
             {
                 var databaseOptions = provider.GetRequiredService<IOptionsSnapshot<DatabaseOptions>>();
-
+                string connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+                if(string.IsNullOrEmpty(connectionString))
+                {
+                    databaseOptions.Value.ConnectionString = connectionString;
+                }
+                
                 options.UseNpgsql(databaseOptions.Value.ConnectionString);
             });
 
