@@ -1,5 +1,6 @@
 using System;
 using BaGet.Core;
+using BaGet.DropBox;
 using BaGet.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -67,6 +68,7 @@ namespace BaGet
             app.AddFileStorage();
             app.AddAliyunOssStorage();
             app.AddAwsS3Storage();
+            app.AddDropBoxStorage();
             app.AddAzureBlobStorage();
             app.AddGoogleCloudStorage();
 

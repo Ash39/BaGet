@@ -39,6 +39,7 @@ namespace BaGet
                 "AliyunOss",
                 "AwsS3",
                 "AzureBlobStorage",
+                "DropBox",
                 "Filesystem",
                 "GoogleCloud",
                 "Null",

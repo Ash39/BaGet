@@ -108,11 +108,11 @@ namespace BaGet
                         options.Limits.MaxRequestBodySize = null;
                     });
 
-                    var port = Environment.GetEnvironmentVariable("PORT");
-
-                    web.UseUrls("http://*:" + port);
-
-
+                    string port = Environment.GetEnvironmentVariable("PORT");
+                    if(!string.IsNullOrEmpty(port))
+                    {
+                        web.UseUrls("http://*:" + port);
+                    }
                     web.UseStartup<Startup>();
                 });
         }
