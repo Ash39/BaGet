@@ -30,12 +30,9 @@ namespace BaGet.DropBox
 
             try
             {
-                using (var request = await _client.Files.DownloadAsync(path))
-                {
-                   stream =  await request.GetContentAsStreamAsync();
-                }
+                var request = await _client.Files.DownloadAsync("/" + path);
+                stream =  await request.GetContentAsStreamAsync();
 
-                stream.Seek(0, SeekOrigin.Begin);
             }
             catch (Exception)
             {
@@ -50,11 +47,8 @@ namespace BaGet.DropBox
 
         public Task<Uri> GetDownloadUriAsync(string path, CancellationToken cancellationToken = default)
         {
-            string url = null;
-            using (var response =  _client.Files.DownloadAsync(path))
-            {
-                 url = response.Result.GetContentAsStringAsync().Result;
-            }
+            var response =  _client.Files.DownloadAsync("/" + path);
+            string url = response.Result.GetContentAsStringAsync().Result;
 
             return Task.FromResult(new Uri(url));
         }
@@ -70,7 +64,7 @@ namespace BaGet.DropBox
 
                 seekableContent.Seek(0, SeekOrigin.Begin);
 
-                await _client.Files.UploadAsync(path, WriteMode.Overwrite.Instance, body: seekableContent);
+                await _client.Files.UploadAsync("/" + path, WriteMode.Overwrite.Instance, body: seekableContent);
             }
 
             return StoragePutResult.Success;
@@ -78,7 +72,7 @@ namespace BaGet.DropBox
 
         public async Task DeleteAsync(string path, CancellationToken cancellationToken = default)
         {
-            await _client.Files.DeleteV2Async(path);
+            await _client.Files.DeleteV2Async("/" + path);
         }
     }
 }
