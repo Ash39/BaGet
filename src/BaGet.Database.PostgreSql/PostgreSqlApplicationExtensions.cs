@@ -17,6 +17,7 @@ namespace BaGet
                 string connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
                 if(string.IsNullOrEmpty(connectionString))
                 {
+                    Console.WriteLine(connectionString);
                     databaseOptions.Value.ConnectionString = connectionString;
                 }
                 
